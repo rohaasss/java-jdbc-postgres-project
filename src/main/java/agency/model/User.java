@@ -2,24 +2,25 @@ package agency.model;
 
 public class User {
     private int id;
-    private String login;
+    private String username;
     private String password;
     private String role;
 
     public User() {}
 
-    public User(int id, String login, String password, String role) {
+    public User(int id, String username, String password, String role) {
         this.id = id;
-        this.login = login;
+        this.username = username;
         this.password = password;
         this.role = role;
     }
 
+    // Геттеры и сеттеры
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
-    public String getLogin() { return login; }
-    public void setLogin(String login) { this.login = login; }
+    public String getUsername() { return username; }
+    public void setUsername(String username) { this.username = username; }
 
     public String getPassword() { return password; }
     public void setPassword(String password) { this.password = password; }
@@ -27,9 +28,8 @@ public class User {
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
 
-    @Override
-    public String toString() {
-        return "User{id=" + id + ", login='" + login + '\'' + ", role='" + role + '\'' + '}';
+    // Общий метод для отображения информации (необязательно)
+    public void printInfo() {
+        System.out.println("User: " + username + ", Role: " + role);
     }
 }
-

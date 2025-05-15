@@ -1,104 +1,65 @@
 package agency.service;
 
 import agency.model.User;
+import agency.menu.MarketingMenu;
+import agency.menu.ManagerMenu;
+import agency.menu.WorkerMenu;
+import agency.menu.DirectorMenu;
 
 import java.util.Scanner;
 
 public class MenuService {
-    private final Scanner scanner = new Scanner(System.in);
 
-    public boolean showMenu(User user) {
-        String role = user.getRole().toLowerCase();
-        System.out.println("\nДобро пожаловать, " + user.getLogin() + "! Роль: " + user.getRole());
+    private Scanner scanner;
+    private UserService userService;
 
-        switch (role) {
-            case "director": return directorMenu();
-            case "marketing": return marketingMenu();
-            case "manager": return managerMenu();
-            case "worker": return workerMenu();
-            case "sale manager": return salesManagerMenu();
-            case "hr": return hrMenu();
+    public MenuService(Scanner scanner, UserService userService) {
+        this.scanner = scanner;
+        this.userService = userService;
+    }
+
+    public void start() {
+        System.out.print("Для запуска программы, пожалуйста введите тип аккаунта: >>> ");
+        String accountType = scanner.nextLine().trim().toLowerCase();
+
+        if (!accountType.equals("marketing") && !accountType.equals("manager") && !accountType.equals("director") && !accountType.equals("worker")) {
+            System.out.println("Извините, но мы не нашли такой тип аккаунта, пожалуйста повторите.");
+            return;
+        }
+
+        System.out.print("Введите логин: ");
+        String login = scanner.nextLine().trim();
+        System.out.print("Введите пароль: ");
+        String password = scanner.nextLine().trim();
+
+        User user = userService.login(login, password);
+        if (user == null) {
+            System.out.println("Ошибка авторизации. Проверьте логин и пароль.");
+            return;
+        }
+
+        if (!user.getRole().equalsIgnoreCase(accountType)) {
+            System.out.println("Роль пользователя не совпадает с введенным типом аккаунта.");
+            return;
+        }
+
+        switch (accountType) {
+            case "marketing":
+                new MarketingMenu(scanner).start(user);
+                break;
+            case "manager":
+                new ManagerMenu(scanner).start(user);
+                break;
+            case "director":
+                new DirectorMenu(scanner).start(user);
+                break;
+            case "worker":
+                new WorkerMenu(scanner).start(user);
+                break;
             default:
-                System.out.println("Неизвестная роль: " + user.getRole());
-                return true; // выйти
+                System.out.println("Неизвестный тип аккаунта.");
         }
-    }
 
-    private boolean directorMenu() {
-        System.out.println("Меню Директора:\n1. Действие 1\n2. Выход");
-        String choice = scanner.nextLine();
-        if ("1".equals(choice)) {
-            System.out.println("Вы выбрали действие 1 для Директора");
-            return false;
-        } else if ("2".equals(choice)) {
-            return true;
-        }
-        System.out.println("Неверный выбор");
-        return false;
-    }
-
-    private boolean marketingMenu() {
-        System.out.println("Меню Маркетолога:\n1. Действие 1\n2. Выход");
-        String choice = scanner.nextLine();
-        if ("1".equals(choice)) {
-            System.out.println("Вы выбрали действие 1 для Маркетолога");
-            return false;
-        } else if ("2".equals(choice)) {
-            return true;
-        }
-        System.out.println("Неверный выбор");
-        return false;
-    }
-
-    private boolean managerMenu() {
-        System.out.println("Меню Менеджера:\n1. Действие 1\n2. Выход");
-        String choice = scanner.nextLine();
-        if ("1".equals(choice)) {
-            System.out.println("Вы выбрали действие 1 для Менеджера");
-            return false;
-        } else if ("2".equals(choice)) {
-            return true;
-        }
-        System.out.println("Неверный выбор");
-        return false;
-    }
-
-    private boolean workerMenu() {
-        System.out.println("Меню Сотрудника:\n1. Действие 1\n2. Выход");
-        String choice = scanner.nextLine();
-        if ("1".equals(choice)) {
-            System.out.println("Вы выбрали действие 1 для Сотрудника");
-            return false;
-        } else if ("2".equals(choice)) {
-            return true;
-        }
-        System.out.println("Неверный выбор");
-        return false;
-    }
-
-    private boolean salesManagerMenu() {
-        System.out.println("Меню Агента по продажам:\n1. Действие 1\n2. Выход");
-        String choice = scanner.nextLine();
-        if ("1".equals(choice)) {
-            System.out.println("Вы выбрали действие 1 для Агента по продажам");
-            return false;
-        } else if ("2".equals(choice)) {
-            return true;
-        }
-        System.out.println("Неверный выбор");
-        return false;
-    }
-
-    private boolean hrMenu() {
-        System.out.println("Меню HR:\n1. Действие 1\n2. Выход");
-        String choice = scanner.nextLine();
-        if ("1".equals(choice)) {
-            System.out.println("Вы выбрали действие 1 для HR");
-            return false;
-        } else if ("2".equals(choice)) {
-            return true;
-        }
-        System.out.println("Неверный выбор");
-        return false;
+        System.out.println("Программа завершена, мы будем рады вашему возвращению!");
     }
 }
