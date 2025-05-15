@@ -1,0 +1,6 @@
+user1, password1, marketing
+user2, password2, manager
+user3, password3, worker
+user4, password4, director
+user5, password5, sale-manager
+user6, password6, hr
