@@ -15,7 +15,7 @@ public class User {
         this.role = role;
     }
 
-    // Геттеры и сеттеры
+
     public int getId() { return id; }
     public void setId(int id) { this.id = id; }
 
@@ -28,7 +28,7 @@ public class User {
     public String getRole() { return role; }
     public void setRole(String role) { this.role = role; }
 
-    // Общий метод для отображения информации (необязательно)
+
     public void printInfo() {
         System.out.println("User: " + username + ", Role: " + role);
     }

@@ -6,5 +6,5 @@ public class Marketer extends User {
         super(id, username, password, "marketing");
     }
 
-    // Особые методы маркетолога
+
 }

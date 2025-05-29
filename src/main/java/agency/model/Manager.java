@@ -6,5 +6,5 @@ public class Manager extends User {
         super(id, username, password, "manager");
     }
 
-    // Особенные методы менеджера
+
 }

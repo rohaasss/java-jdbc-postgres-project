@@ -6,5 +6,5 @@ public class Worker extends User {
         super(id, username, password, "worker");
     }
 
-    // Особые методы работника
+
 }

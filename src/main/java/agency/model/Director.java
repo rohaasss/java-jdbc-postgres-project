@@ -6,7 +6,7 @@ public class Director extends User {
         super(id, username, password, "director");
     }
 
-    // Здесь можно добавить методы, уникальные для директора
+
     public void printInfo() {
         System.out.println("Director: " + getUsername());
     }
